@@ -1,9 +1,9 @@
 const alumnos = require('../../datos/alumnos.json')
-
+//obtener todos los alumnos
 const getAllAlumnos = (req, res)=>{
     res.json( alumnos ).status(200)
 }
-
+//obtener un alumno por DNI
 const getAlumnoByDni = (req, res) => {
     const dni = req.params.dni
     const resultado = alumnos.find( alumno => alumno.dni == dni)
@@ -13,9 +13,11 @@ const getAlumnoByDni = (req, res) => {
         res.status(404).json({ mensaje: `El alumno con dni ${dni} no fue encontrado`} )
     }
 }
-
+//eliminar un alumno por DNI
 const deleteAlumnoByDni = (req, res) => {
     const dni = req.params.dni
+    //findIndex : retorna el primer índice
+    // en el que se puede encontrar un elemento dado en el array
     const indice = alumnos.findIndex( alumno => alumno.dni == dni )
     if(indice==-1) {
         res.status(404).
@@ -36,7 +38,7 @@ const deleteAlumnoByDni = (req, res) => {
         )
     }
 }
-
+//crear un Alumno
 const crateAlumno = (req, res) => {
     const alumnosData = req.body
     const existe = alumnos.find(alumno => alumno.dni == alumnosData.dni)
